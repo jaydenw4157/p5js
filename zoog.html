@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>p5js Template</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.3/p5.js"></script>
+    
+    <script>
+        function setup() {
+            createCanvas(800,600);
+        }
+
+        function draw() {
+        fill(223,180,149)// these first two lines form the body and nose of my zoog
+        rect(200,90,130,250)
+        fill(254,254,254)// these four lines are used to make my zoog's eyes
+        ellipse(200,140,90,90)
+        fill(7,2,254)
+        ellipse(200,140,10,10)
+        fill(223,180,149) // I coded the nose after the eyes do it could overlap over the eyes
+        rect(100,160,180,80)
+        fill(254,254,254)// these line were to make the pupils for the eyes
+        ellipse(280,160,90,90)
+        fill(7,2,254)
+        ellipse(280,160,10,10)
+        fill(255,0,0)// the rest of these lines formed the rest of the zoog's body
+        rect(200,340,130,340)
+        fill(255,0,0)
+        rect(90,340,110,60)
+        fill(255,0,0)
+        rect(330,340,110,60)
+            
+        }
+    </script>
+</head>
+
+<body>
+    <div id="code" class="container-fluid">
+        <script src="https://gist-it.appspot.com/github/USERNAME/p5js/blob/gh-pages/zoog.html?footer=0"></script>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        $(window).bind("load", function() {
+            $('#code').before($('#defaultCanvas0').remove());
+        });
+    </script>
+</body>
