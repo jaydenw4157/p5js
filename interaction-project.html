@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>p5js Template</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.3/p5.js"></script>
+    
+    <script>
+        function setup() {
+            createCanvas(800,600);
+            
+            
+        }
+
+        function draw() {
+            fill(random(300), random(300), random(100), random(300))
+            rect(mouseX,mouseY,100,100);
+            //ellipse(mouseX,mouseY,100,100);
+            fill(random(300),random(300),random(300),random(300))
+            ellipse(width-mouseX,height-mouseY,100,100)
+            
+        }
+        
+        function mouseDragged() {
+
+
+            stroke(random(255), random(255), random(255));
+            line(0, 0, mouseX, mouseY);
+            line(0, height, mouseX, mouseY);
+            line(width, 0, mouseX, mouseY);
+            line(width, height, mouseX, mouseY);
+            
+     }
+    </script>
+</head>
+
+<body>
+    <div id="code" class="container-fluid">
+        <script src="https://gist-it.appspot.com/github/jaydenw4157@hstat.org/p5js/blob/gh-pages/interaction-project.html?footer=0"></script>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        $(window).bind("load", function() {
+            $('#code').before($('#defaultCanvas0').remove());
+        });
+    </script>
+</body>
+
+
+</html>
