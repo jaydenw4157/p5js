@@ -15,10 +15,12 @@
         function draw() {
             fill(random(300), random(300), random(100), random(300))
             rect(mouseX,mouseY,100,100);
+            // this makes the rectangles have random colors
             //ellipse(mouseX,mouseY,100,100);
             fill(random(300),random(300),random(300),random(300))
             ellipse(width-mouseX,height-mouseY,100,100)
-            
+            // this code makes the circles and gives the random color
+            // makes the shapes follow the mouse around
         }
         
         function mouseDragged() {
@@ -29,7 +31,7 @@
             line(0, height, mouseX, mouseY);
             line(width, 0, mouseX, mouseY);
             line(width, height, mouseX, mouseY);
-            
+            // this makes the line different colors and appears when the mouse is clicked
      }
     </script>
 </head>
