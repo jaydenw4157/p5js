@@ -11,7 +11,6 @@
         function setup() {
             createCanvas(800,800);
             frameRate(.25)
-            var value = 255;
             
         }
 
@@ -19,29 +18,30 @@
             noFill();
             strokeWeight(2)
             stroke("yellow")
-            var ellipse_one = ellipse(random(100,700,width-100),random(100,width - 100),100);
+            ellipse(random(100,700,width-100),random(100,width - 100),100);
             stroke("green")
-            var ellipse_two= ellipse(random(100,width-100),random(100,width - 100),100);
+            ellipse(random(100,width-100),random(100,width - 100),100);
             stroke("red")
-            var ellipse_three = ellipse(random(100,width-100),random(100,width - 100),100);
+            ellipse(random(100,width-100),random(100,width - 100),100);
+          
             
         }
-        
         function keyPressed(){
-         if(keyCode == 'r' ){
-             fill(255,0,0)
-             ellipse_one
-         }
-         if(keyCode == 'g' ){
-             fill(255,255,0)
-             ellipse_two
-         }
-         if(keyCode == 'y' ){
-             fill(0,255,0)
-             ellipse_three
-         }
-    }
- 
+            if (keyCode == 'r' && keyIsPressed){
+                fill("red")
+                ellipse(random(100,width-100),random(100,width - 100),100);
+            }
+            else if (keyCode == "g" && keyIsPressed){
+              fill("green")
+              ellipse(random(100,width-100),random(100,width - 100),100);
+            }
+            else if(keyCode == "y" && keyIsPressed){
+              fill('yellow')
+              ellipse(random(100,width-100),random(100,width - 100),100);
+            }
+                
+            
+        }
       //function mousePressed(){
         
         
@@ -50,18 +50,7 @@
 </head>
 
 <body>
-    <div id="code" class="container-fluid">
-        <script src="https://gist-it.appspot.com/github/jaydenw4157@hstat.org/p5js/blob/gh-pages/conditionals-project.html?footer=0"></script>
-    </div>
 
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script>
-        $(window).bind("load", function() {
-            $('#code').before($('#defaultCanvas0').remove());
-        });
-    </script>
 </body>
-
 
 </html>
