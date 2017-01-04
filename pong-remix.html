@@ -20,11 +20,17 @@
             ballY = height / 2;
         }
         function draw() {
-            background(155,0,0);
-            moveBall();
-            checkCollide();
-            drawPaddle();
-            drawBall();
+            pause = 0;
+            if (keyIsPressed == true){//when a key is pressed
+                pause = 1;//the ball will stop moving until you let go of the key
+            }
+            if (pause == 0){
+                background(155,0,0);
+                moveBall();
+                checkCollide();
+                drawPaddle();
+                drawBall();
+            }
         }
         
         function moveBall() {
