@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>Pong</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.13/p5.js"></script>
+    <script>
+        /* variables are being created and they are for the coordinates and speed*/
+        var ballX;
+        var ballY;
+        var ballSpeedX = 0;
+        var ballSpeedY =  0;
+        var paddleHeight = 30;
+
+        function setup() {
+            createCanvas(800, 600);
+            /* variables are being defined and makes the mouse invisible*/
+            noCursor();
+            ballX = width / 2;
+            ballY = height / 2;
+        }
+        
+        function moveBall() {
+            /*  ball is able to move*/
+            ballX = ballX + ballSpeedX;
+            ballY = ballY + ballSpeedY;
+
+            console.log("ballSpeedX: " + ballSpeedX + 
+                               ", ballSpeedY: " + ballSpeedY);
+        }
+        /* This is a function that checks whether or not the ball hit the paddle*/
+        function checkCollide() {
+            if (ballX < 0 || ballX > width) {
+                ballSpeedX = ballSpeedX * -1;
+            }
+            if (ballY < 0) {
+                ballSpeedY = ballSpeedY * -1;
+            }
+            if (ballY > height - paddleHeight) {// ball gets faster if you hit the paddle
+                if (ballX > mouseX && ballX < mouseX + 200) {
+                    ballSpeedY = ballSpeedY * -1;
+                    ballSpeedY -= 4//changes speed of the ball
+                    paddleHeight -= 8// changes the size of the paddle
+                }
+                else {//if the paddle misses the ball 
+                    text("TRUMP WINS!", width / 2, height / 2);//it will display the text
+                    noLoop();
+                }
+            }
+        }
+        /* This function defines the ball*/
+        function drawBall() {
+            noStroke();
+            fill(0,0,155);
+            ellipse(ballX, ballY, 20, 20);// draws the ball
+        }
+        /* creates the paddle and the paddle follows the mouse*/
+        function drawPaddle() {
+            strokeWeight(4);
+            fill(0,0,155);
+            rect(mouseX, height - paddleHeight - 4, 200, paddleHeight);
+        }
+        function mousePressed(){// makes the ball move/starts game
+            background(128);
+            ballSpeedX = 5
+            ballSpeedY = 5
+        
+        }
+        function keyPressed() {
+            if(keyCode == RETURN) { // detects if the return key is pressed
+                ballSpeedX = 0; // if the return key is pressed the ball's 
+                ballSpeedY = 0; // speed will reduce to 0, which stops the ball
+                
+            }
+            else { // can tell if any of the other keys are pressed
+                ballSpeedX+= 5; // if any of the other keys are pressed
+                ballSpeedY+= 5; // the ball's x and y speed will increase by 5
+                
+            }
+        }
+        
+    </script>
+</head>
+
+<body>
+    <div id="code" class="container-fluid">
+        <script src="https://gist-it.appspot.com/github/jaydenw4157@hstat.org/p5js/blob/gh-pages/pong-remix.html?footer=0"></script>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        $(window).bind("load", function() {
+            $('#code').before($('#defaultCanvas0').remove());
+        });
+    </script>
+</body>
+
+</html>
+</html>
