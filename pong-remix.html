@@ -19,6 +19,13 @@
             ballX = width / 2;
             ballY = height / 2;
         }
+        function draw() {
+            background(128);
+            moveBall();
+            checkCollide();
+            drawPaddle();
+            drawBall();
+        }
         
         function moveBall() {
             /*  ball is able to move*/
@@ -94,6 +101,7 @@
         });
     </script>
 </body>
+
 
 </html>
 </html>
