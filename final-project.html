@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>Pong</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.13/p5.js"></script>
+    <script>
+        var ballX; // x-location of the ball
+        var ballY; // y-location of the ball
+        var ballSpeedX = 0; // speed of the ball horizontally
+        var ballSpeedY = 0; // speed of the ball vertically
+        var paddleHeight = 30; // height of the paddle
+        var score = 0 // score of the game, set at 0
+        var speedup = -1 // default speed of the ball
+
+
+        function setup() {
+            createCanvas(800, 600); // canvas size
+            noCursor(); 
+            ballX = width / 2;  // start the ball in the
+            ballY = height / 2; // middle of the canvas
+
+        }
+
+        function draw() {
+            background("blue"); // resets the background
+            moveBall(); // ball moves in X and Y directions
+            checkCollide(); // checks for collision with walls or paddle
+            drawPaddle(); // re-draws paddle
+            drawBall(); // re-draws ball 
+            score1(); // displays the score text
+            
+            
+        }
+
+
+        function moveBall() {
+            ballX = ballX + ballSpeedX; // updates ball location horizontally
+            ballY = ballY + ballSpeedY; // updates ball location vertically
+
+            // monitor speed/direction of ball
+            console.log("ballSpeedX: " + ballSpeedX + ", ballSpeedY: " + ballSpeedY);
+        }
+
+        function checkCollide() {
+            // left/right edges
+            if (ballX < 0 || ballX > width) {
+                ballSpeedX = ballSpeedX * speedup; // switch X direction
+
+            }
+
+            // top edge
+            if (ballY < 0) {
+                ballSpeedY = ballSpeedY * speedup; // switch Y direction
+                //
+            }
+
+            // paddle
+            if (ballY > height - paddleHeight) { // ball is past 'goal line' vertically
+                if (ballX > mouseX && ballX < mouseX + 200) { // ball is within paddle horizontally
+                    ballSpeedY = ballSpeedY * speedup; // switch Y direction
+                    score+=1 //increases the score since the if conditional
+                    // determines if the ball hits the paddle or not
+                    speedup-=0.1 // increases the default speed by adding -0.1 to it
+                    console.log(speedup) //monitors the speed of the ball
+                    if(ballSpeedX<= -6||ballSpeedX>= 6){ //sets a limit on the ball speed
+                        speedup=-1 //having it greater than/equal to 6 has it start out slowly
+                                    //or it's less than/equal to -6,it will go fast
+                    
+            }
+                    
+            
+                }
+                else { // ball is on t/he left or right side of the paddle
+                    text("GAME OVER!", width / 2, height / 2);
+                    noLoop(); // stops the draw loop
+                }
+                
+
+                
+            }
+        }
+
+        function drawBall() {
+            noStroke(); // no outline
+            ellipse(ballX, ballY, 20, 20); // draw the ball at the current location
+        }
+
+        function drawPaddle() {
+            strokeWeight(4);
+
+            // rectangle y-value is always at the bottom, but shifted up the height of paddle and the border of paddle
+            fill(random(300), random(300), random(100), random(300))
+            rect(mouseX, height - paddleHeight - 4, 200, paddleHeight);
+
+        }
+        function mousePressed(){
+            ballSpeedX = 5 //game is paused at the start until
+            ballSpeedY = 5 // mouse is pressed.
+            
+        }
+        function score1(){ // This function sets the text size, font and the location of the score text,
+            textSize(30) //sets a limit/victory condition and will display a message once it's
+            textFont("Comic Sans MS") // been reached
+            text("Score: "+ score,10,50)
+            if(score>=20){
+                text("You win!", 300,400)
+                noLoop()
+            }
+        }
+        
+    </script>
+</head>
+
+<body>
+    <div id="code" class="container-fluid">
+        <script src="https://gist-it.appspot.com/github/jaydenw4157@hstat.org/p5js/blob/gh-pages/final-project.html?footer=0"></script>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        $(window).bind("load", function() {
+            $('#code').before($('#defaultCanvas').remove());
+        });
+    </script>
+</body>
+
+</html>
