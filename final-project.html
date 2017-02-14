@@ -2,117 +2,116 @@
 <html>
 
 <head>
-    <title>Pong</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.13/p5.js"></script>
-    <script>
-        var ballX; // x-location of the ball
-        var ballY; // y-location of the ball
-        var ballSpeedX = 0; // speed of the ball horizontally
-        var ballSpeedY = 0; // speed of the ball vertically
-        var paddleHeight = 30; // height of the paddle
-        var score = 0 // score of the game, set at 0
-        var speedup = -1 // default speed of the ball
+    <title>p5js Template</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.3/p5.js"></script>
 
+    <script>
+        
+        var addRectangles = []; 
+        var space = 0; 
 
         function setup() {
-            createCanvas(800, 600); // canvas size
-            noCursor(); 
-            ballX = width / 2;  // start the ball in the
-            ballY = height / 2; // middle of the canvas
+            createCanvas(800, 600);
+
+            //8 bars are created when the game starts
+            //o nce it reaches the left side, they restart on the right side
+            for (i = 0; i < 8; i++) {
+                addRectangles.push(new Rectangles())
+
+                space += 110; //gives spacing in between each bar.
+            }
 
         }
-
+        // draws the bars and the circle
         function draw() {
-            background("blue"); // resets the background
-            moveBall(); // ball moves in X and Y directions
-            checkCollide(); // checks for collision with walls or paddle
-            drawPaddle(); // re-draws paddle
-            drawBall(); // re-draws ball 
-            score1(); // displays the score text
-            
-            
+
+            noCursor(); //mouse doesn't show
+
+            background("blue"); //background is blue
+
+            fill("red"); // color of the circle
+
+            ellipse(mouseX, mouseY, 20, 20); // circle that moves with the mouse
+
+            //displays and gives functionality to all bars
+            for (var i = 0; i < addRectangles.length; i++) {
+                addRectangles[i].gg(); // stops the game when the circle touches any of the bars
+
+                addRectangles[i].move(); //makes all the bars move
+
+                addRectangles[i].display(); //shows all the bars
+
+                addRectangles[i].timer(); //shows timer
+            }
         }
 
+        // function Rectangles() holds intructions on how to make the bars and what it does.
+        function Rectangles() {
 
-        function moveBall() {
-            ballX = ballX + ballSpeedX; // updates ball location horizontally
-            ballY = ballY + ballSpeedY; // updates ball location vertically
+            this.speed = 3; // the speed of the bars
 
-            // monitor speed/direction of ball
-            console.log("ballSpeedX: " + ballSpeedX + ", ballSpeedY: " + ballSpeedY);
-        }
+            this.x = width + space; // the bars start on the right edge
 
-        function checkCollide() {
-            // left/right edges
-            if (ballX < 0 || ballX > width) {
-                ballSpeedX = ballSpeedX * speedup; // switch X direction
+            this.y = random(800); // the bars start at random y-coordinate between 0 and 800
 
-            }
+            // makes the bars move
+            this.move = function() {
+                    this.x -= this.speed; // makes the bars move towards the left
 
-            // top edge
-            if (ballY < 0) {
-                ballSpeedY = ballSpeedY * speedup; // switch Y direction
-                //
-            }
+                    //when the bars reached the left edge it starts again on the right edge at random y-coordinate between 0 and 800
+                    if (this.x <= 0) {
 
-            // paddle
-            if (ballY > height - paddleHeight) { // ball is past 'goal line' vertically
-                if (ballX > mouseX && ballX < mouseX + 200) { // ball is within paddle horizontally
-                    ballSpeedY = ballSpeedY * speedup; // switch Y direction
-                    score+=1 //increases the score since the if conditional
-                    // determines if the ball hits the paddle or not
-                    speedup-=0.1 // increases the default speed by adding -0.1 to it
-                    console.log(speedup) //monitors the speed of the ball
-                    if(ballSpeedX<= -6||ballSpeedX>= 6){ //sets a limit on the ball speed
-                        speedup=-1 //having it greater than/equal to 6 has it start out slowly
-                                    //or it's less than/equal to -6,it will go fast
-                    
-            }
-                    
-            
+                        this.x = width + 110; // bars start again on the right edge with a spacing
+
+                        
+                        this.y = random(800); // bars start again at random y-coordinate between 0 and 800
+                    }
+
                 }
-                else { // ball is on t/he left or right side of the paddle
-                    text("GAME OVER!", width / 2, height / 2);
-                    noLoop(); // stops the draw loop
-                }
-                
+                //this display the bars
+            this.display = function() {
 
-                
+                fill(random(300), random(300), random(100), random(300)); // sets the color of the bars to random
+                rectMode(CENTER);
+
+                rect(this.x, this.y, 20, 500); // the bar
             }
-        }
-
-        function drawBall() {
-            noStroke(); // no outline
-            ellipse(ballX, ballY, 20, 20); // draw the ball at the current location
-        }
-
-        function drawPaddle() {
-            strokeWeight(4);
-
-            // rectangle y-value is always at the bottom, but shifted up the height of paddle and the border of paddle
-            fill(random(300), random(300), random(100), random(300))
-            rect(mouseX, height - paddleHeight - 4, 200, paddleHeight);
-
-        }
-        function mousePressed(){
-            ballSpeedX = 5 //game is paused at the start until
-            ballSpeedY = 5 // mouse is pressed.
             
-        }
-        function score1(){ // This function sets the text size, font and the location of the score text,
-            textSize(30) //sets a limit/victory condition and will display a message once it's
-            textFont("Comic Sans MS") // been reached
-            text("Score: "+ score,10,50)
-            if(score>=20){
-                text("You win!", 300,400)
-                noLoop()
+
+            //This detects if the circle is touching the bars and if so, ends the game and stops the bars from appearing.
+            this.gg = function() {
+
+                // if the circle touch the bars
+                if ((mouseX + 10 > this.x - 10 && mouseX + 10 < this.x + 10 || mouseX - 10 > this.x - 10 && mouseX - 1 < this.x + 10) && (mouseY + 10 > this.y - 250 && mouseY + 10 < this.y + 250 || mouseY - 10 > this.y - 250 && mouseY - 10 < this.y + 250)) {
+
+                    addRectangles = false; // stops bars from showing
+
+                    background(255); // background turns red
+
+                    textSize(25); // size of the text 
+
+                    fill(51, 204, 51); //color of text: white
+
+                    text("Game Over", 200, height / 2); // text that says "Game Over" in the center of the canvas
+
+                    text("You survived for " + millis() / 1000 + " seconds", 200, 400) //tells you the time you survived in seconds
+
+                }
             }
+/
+            //the timer
+            this.timer = function() {
+                text("Time: " + millis() / 1000, 30, 30); //timer in seconds on the top left corner
+            }
+
         }
-        
     </script>
 </head>
 
 <body>
+    
+    <form><input TYPE="button" onClick="history.go(0)" value="Reset"></form>
+
     <div id="code" class="container-fluid">
         <script src="https://gist-it.appspot.com/github/jaydenw4157@hstat.org/p5js/blob/gh-pages/final-project.html?footer=0"></script>
     </div>
@@ -120,9 +119,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script>
         $(window).bind("load", function() {
-            $('#code').before($('#defaultCanvas').remove());
+            $('#code').before($('#defaultCanvas0').remove());
         });
     </script>
+    
 </body>
 
 </html>
